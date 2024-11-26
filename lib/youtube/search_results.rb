@@ -14,27 +14,27 @@ module Youtube
     end
 
     def self.valid_response?(response)
-      (response and response[:kind] == 'youtube#searchListResponse') ? true : false
+      (response and response['kind'] == 'youtube#searchListResponse') ? true : false
     end
 
     def results
-      @results ||= Array(@attrs[:items]).map do |item|
-        item_kind = item[:id][:kind].split('#').last
-        item[:id]["#{item_kind}Id".to_sym]
+      @results ||= Array(@attrs['items']).map do |item|
+        item_kind = item['id']['kind'].split('#').last
+        item['id']["#{item_kind}Id"]
       end
     end
 
     def next_page_token
-      @attrs[:nextPageToken]
+      @attrs['nextPageToken']
     end
 
     def total_results
-      @attrs[:pageInfo] ? @attrs[:pageInfo][:totalResults].to_i : 0
+      @attrs['pageInfo'] ? @attrs['pageInfo']['totalResults'].to_i : 0
     end
 
     def last_published_at
-      if @attrs[:items] and @attrs[:items].any?
-        Time.parse(@attrs[:items].last[:snippet][:publishedAt])
+      if @attrs['items'] and @attrs['items'].any?
+        Time.parse(@attrs['items'].last['snippet']['publishedAt'])
       else
         nil
       end

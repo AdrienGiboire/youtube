@@ -2,7 +2,7 @@ require 'faraday'
 
 module Youtube
   module Response
-    class RaiseError < Faraday::Response::Middleware
+    class RaiseError < Faraday::Response::Json
 
       def on_complete(env)
         status_code = env[:status].to_i

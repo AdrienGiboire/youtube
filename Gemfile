@@ -4,9 +4,14 @@ gem 'rake'
 gem 'yard'
 gem 'iso8601'
 
+group :development, :test do
+  gem 'byebug'
+  gem 'pry-rails'
+end
+
 group :development do
   gem 'pry'
-  gem 'json', '1.8.6'
+  gem 'json'
 end
 
 group :test do

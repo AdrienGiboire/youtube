@@ -6,11 +6,11 @@ module Youtube
   class Video < Youtube::Identity
 
     def self.valid_response?(response)
-      (response and response[:kind] == 'youtube#videoListResponse') ? true : false
+      (response and response['kind'] == 'youtube#videoListResponse') ? true : false
     end
 
     def valid_item?
-      (@attrs and @attrs[:kind] == 'youtube#video') ? true : false
+      (@attrs and @attrs['kind'] == 'youtube#video') ? true : false
     end
 
     def exists?
@@ -18,31 +18,31 @@ module Youtube
     end
 
     def id
-      @attrs[:id]
+      @attrs['id']
     end
 
     def channel_id
-      @attrs[:snippet][:channelId]
+      @attrs['snippet']['channelId']
     end
 
     def title
-      @attrs[:snippet][:title]
+      @attrs['snippet']['title']
     end
 
     def description
-      @attrs[:snippet][:description]
+      @attrs['snippet']['description']
     end
 
     def published_at
-      Time.parse(@attrs[:snippet][:publishedAt])
+      Time.parse(@attrs['snippet']['publishedAt'])
     end
 
     def thumbnails
-      @attrs[:snippet][:thumbnails] || {}
+      @attrs['snippet']['thumbnails'] || {}
     end
 
     def category_id
-      @attrs[:snippet][:categoryId].to_i
+      @attrs['snippet']['categoryId'].to_i
     end
 
     def views_count
@@ -66,11 +66,11 @@ module Youtube
     end
 
     def duration
-      (@attrs[:contentDetails].nil? || @attrs[:contentDetails][:duration].nil?) ? nil : ISO8601::Duration.new(@attrs[:contentDetails][:duration]).to_seconds.to_i
+      (@attrs['contentDetails'].nil? || @attrs['contentDetails']['duration'].nil?) ? nil : ISO8601::Duration.new(@attrs['contentDetails']['duration']).to_seconds.to_i
     end
 
     def region_restriction
-      @attrs[:contentDetails].nil? ? {} : (@attrs[:contentDetails][:regionRestriction] || {})
+      @attrs['contentDetails'].nil? ? {} : (@attrs['contentDetails']['regionRestriction'] || {})
     end
 
     def privacy_status

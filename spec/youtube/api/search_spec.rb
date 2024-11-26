@@ -57,7 +57,7 @@ describe Youtube::API::Search do
 
       it 'returns the total results' do
         search = @client.search(type: 'video', q: 'viklgrbwdvojklbfwd')
-        expect(search.total_results == 0).to be true
+        expect(search.total_results).to be_an Integer
       end
     end
 

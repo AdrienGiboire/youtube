@@ -4,7 +4,7 @@ module Youtube
   class Playlist < Youtube::Base
 
     def self.valid_response?(response)
-      (response and response[:kind] == 'youtube#playlistListResponse') ? true : false
+      (response and response['kind'] == 'youtube#playlistListResponse') ? true : false
     end
 
     def exists?
@@ -12,7 +12,7 @@ module Youtube
     end
 
     def id
-      @attrs[:id]
+      @attrs['id']
     end
 
   end

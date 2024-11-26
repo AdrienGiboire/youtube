@@ -4,7 +4,7 @@ require 'multi_xml'
 
 module Youtube
   module Response
-    class Parse < Faraday::Response::Middleware
+    class Parse < Faraday::Response::Json
 
       def parse(body)
         case body
@@ -14,7 +14,7 @@ module Youtube
           MultiXml.parser = :nokogiri
           MultiXml.parse(body)
         else
-          MultiJson.decode(body, :symbolize_keys => true)
+          MultiJson.decode(body)
         end
       end
 

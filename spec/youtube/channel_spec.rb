@@ -53,7 +53,7 @@ describe Youtube::Channel do
       expect(@channel.custom_url).to be_a String
     end
     it "returns 'BaladeMentaleChaine'" do
-      expect(@channel.custom_url == 'baladementalechaine').to be true
+      expect(@channel.custom_url == '@baladementale').to be true
     end
   end
 

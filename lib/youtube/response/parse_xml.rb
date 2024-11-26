@@ -3,7 +3,7 @@ require 'multi_xml'
 
 module Youtube
   module Response
-    class ParseXml < Faraday::Response::Middleware
+    class ParseXml < Faraday::Response::Json
 
       def parse(body)
         case body

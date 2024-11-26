@@ -6,11 +6,11 @@ module Youtube
   class Channel < Youtube::Identity
 
     def self.valid_response?(response)
-      (response and response[:kind] == 'youtube#channelListResponse') ? true : false
+      (response and response['kind'] == 'youtube#channelListResponse') ? true : false
     end
 
     def valid_item?
-      (@attrs and @attrs[:kind] == 'youtube#channel') ? true : false
+      (@attrs and @attrs['kind'] == 'youtube#channel') ? true : false
     end
 
     def exists?
@@ -18,31 +18,31 @@ module Youtube
     end
 
     def id
-      @attrs[:id]
+      @attrs['id']
     end
 
     def title
-      @attrs[:snippet][:title]
+      @attrs['snippet']['title']
     end
 
     def custom_url
-      @attrs[:snippet][:customUrl]
+      @attrs['snippet']['customUrl']
     end
 
     def description
-      @attrs[:snippet][:description]
+      @attrs['snippet']['description']
     end
 
     def published_at
-      @attrs[:snippet][:publishedAt] ? Time.parse(@attrs[:snippet][:publishedAt]) : nil
+      @attrs['snippet']['publishedAt'] ? Time.parse(@attrs['snippet']['publishedAt']) : nil
     end
 
     def thumbnails
-      @attrs[:snippet][:thumbnails] || {}
+      @attrs['snippet']['thumbnails'] || {}
     end
 
     def image
-      @attrs[:brandingSettings].nil? ? {} : (@attrs[:brandingSettings][:image] || {})
+      @attrs['brandingSettings'].nil? ? {} : (@attrs['brandingSettings']['image'] || {})
     end
 
     def views_count
@@ -66,38 +66,38 @@ module Youtube
     end
 
     def keywords
-      if @attrs[:brandingSettings].nil? or @attrs[:brandingSettings][:channel].nil?
+      if @attrs['brandingSettings'].nil? or @attrs['brandingSettings']['channel'].nil?
         nil
       else
-        @attrs[:brandingSettings][:channel][:keywords]
+        @attrs['brandingSettings']['channel']['keywords']
       end
     end
 
     def branding_settings
-      @attrs[:brandingSettings] || {}
+      @attrs['brandingSettings'] || {}
     end
 
     def featured_channels_urls
-      if branding_settings[:channel].nil?
+      if branding_settings['channel'].nil?
         []
       else
-        branding_settings[:channel][:featuredChannelsUrls] || []
+        branding_settings['channel']['featuredChannelsUrls'] || []
       end
     end
 
     def related_playlists
-      if @attrs[:contentDetails] and @attrs[:contentDetails][:relatedPlaylists]
-        @attrs[:contentDetails][:relatedPlaylists]
+      if @attrs['contentDetails'] and @attrs['contentDetails']['relatedPlaylists']
+        @attrs['contentDetails']['relatedPlaylists']
       else
         {}
       end
     end
 
     def country
-      if @attrs[:snippet][:country]
-        @attrs[:snippet][:country]
+      if @attrs['snippet']['country']
+        @attrs['snippet']['country']
       else
-        @attrs[:brandingSettings].nil? || @attrs[:brandingSettings][:channel].nil? ? nil : @attrs[:brandingSettings][:channel][:country]
+        @attrs['brandingSettings'].nil? || @attrs['brandingSettings']['channel'].nil? ? nil : @attrs['brandingSettings']['channel']['country']
       end
     end
 

@@ -14,33 +14,33 @@ module Youtube
     end
 
     def self.valid_response?(response)
-      (response and response[:kind] == 'youtube#playlistItemListResponse') ? true : false
+      (response and response['kind'] == 'youtube#playlistItemListResponse') ? true : false
     end
 
     def video_ids
-      @results ||= Array(@attrs[:items]).map do |item|
-        item[:snippet][:resourceId][:videoId]
+      @results ||= Array(@attrs['items']).map do |item|
+        item['snippet']['resourceId']['videoId']
       end
     end
 
     def published_at
-      @results ||= Array(@attrs[:items]).map do |item|
-        item[:snippet][:publishedAt]
+      @results ||= Array(@attrs['items']).map do |item|
+        item['snippet']['publishedAt']
       end
     end
 
     def videos
-      @results ||= Array(@attrs[:items]).map do |item|
+      @results ||= Array(@attrs['items']).map do |item|
         Youtube::Video.new(item)
       end.compact
     end
 
     def next_page_token
-      @attrs[:nextPageToken]
+      @attrs['nextPageToken']
     end
 
     def total_results
-      @attrs[:pageInfo] ? @attrs[:pageInfo][:totalResults].to_i : 0
+      @attrs['pageInfo'] ? @attrs['pageInfo']['totalResults'].to_i : 0
     end
 
   end
